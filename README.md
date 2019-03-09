@@ -22,8 +22,8 @@ aegisub细胞自动机模版
 
 具体用法说明详见lua文件与test.ass
 
- 默认随机世界测试  
- gameOfLife(config) 
+默认随机世界测试  
+gameOfLife(config)  
 ![默认随机世界](https://github.com/haiyang830/GameOfLife-aegisub/blob/master/gif/test%20random%20world.gif)
 
 自定地图1测试  
