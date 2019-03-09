@@ -21,3 +21,18 @@ aegisub细胞自动机模版
     offset 设置自定义地图相对于世界的偏移值  
 
 具体用法说明详见lua文件与test.ass
+
+gameOfLife(config) 默认随机世界测试  
+![默认随机世界](https://github.com/haiyang830/GameOfLife-aegisub/blob/master/gif/test%20random%20world.gif)
+
+gameOfLife(config,test1) 自定地图1测试  
+![自定地图1测试](https://github.com/haiyang830/GameOfLife-aegisub/blob/master/gif/test1.gif)
+
+gameOfLife(config,test2) 自定地图2测试  
+![自定地图2测试](https://github.com/haiyang830/GameOfLife-aegisub/blob/master/gif/test2.gif)
+
+gameOfLife(config,test1) config.state="die" 自定地图1 反向输出测试  
+![自定地图1 反向输出测试](https://github.com/haiyang830/GameOfLife-aegisub/blob/master/gif/world-test1%20state-die.gif)
+
+gameOfLife(config,test2) config.mode="reverse" 自定地图2 逆向迭代测试  
+![自定地图2 逆向迭代测试](https://github.com/haiyang830/GameOfLife-aegisub/blob/master/gif/world-test2%20mode-reverse.gif)
