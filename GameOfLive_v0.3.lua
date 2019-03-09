@@ -1,5 +1,5 @@
 --[[
-细胞自动机 ver 0.3 @haiyang
+细胞自动机 ver 0.31 @haiyang
 
 一行 code once放config表
 一行 code once放函数
@@ -198,39 +198,46 @@ evolution = coroutine.create(
 --输出世界中每个存活/死亡细胞的坐标与时间
 outPutCell = coroutine.create(
 	function (config,evolution_all,evolution_times,state,mode)
-		local key_s,key_e,step
+		local function outPutPos(i,auto_i,key_s,key_y,key_x,val_x,state) --检测到相符的细胞类型则返回坐标
+			if val_x == state then
+				local pos_y = config.pos.y + config.distance.y * (key_y-1) --计算x坐标
+				local pos_x = config.pos.x + config.distance.x * (key_x-1) --计算y坐标
+				local time_s = config.t.s + (auto_i(i,key_s) - 1) * config.speed --计算retime开始时间
+				local time_e = config.t.s + (auto_i(i,key_s) - 1) * config.speed + config.speed --计算retime结束时间
+				coroutine.yield(pos_x,pos_y,time_s,time_e)
+			end
+		end
+		local key_s,key_e,step,auto_i
 		local function outPutMode(mode) --正序/倒序输出模式判断
 			if mode == "reverse" then
 				key_s = evolution_times
 				key_e = 1
 				step = -1
+				return
+					function (i,key) --倒序模式使i依然为正向
+						return key - i + 1
+					end
 			elseif mode == "Positive" then
 				key_s = 1
 				key_e = evolution_times
 				step = 1
+				return
+					function (i,key)
+						return i
+					end
 			end
 		end
-		outPutMode(mode)
-		local function outPutPos(i,key_y,key_x,val_x,state) --检测到相符的细胞类型则返回坐标
-			if val_x == state then
-				local pos_y = config.pos.y + config.distance.y * (key_y-1) --计算x坐标
-				local pos_x = config.pos.x + config.distance.x * (key_x-1) --计算y坐标
-				local time_s = config.t.s + (i-1) * config.speed --计算retime开始时间
-				local time_e = config.t.s + (i-1) * config.speed + config.speed ----计算retime结束时间
-				coroutine.yield(pos_x,pos_y,time_s,time_e)
-			end
-		end
+		auto_i = outPutMode(mode)
 		for i=key_s,key_e,step do
-			local world = evolution_all[i] 
+			local world = evolution_all[i]
 			for key_y=1,config.size.y do
 				local val_y = world[key_y]
 				for key_x=1,config.size.x do
 					local val_x = val_y[key_x]
-					outPutPos(i,key_y,key_x,val_x,state)
+					outPutPos(i,auto_i,key_s,key_y,key_x,val_x,state)
 				end
 			end
 		end
-
 	end
 )
 --生命游戏主函数
