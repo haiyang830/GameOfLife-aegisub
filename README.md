@@ -17,6 +17,7 @@ aegisub细胞自动机模版
     border 设置地图边界距离  
     state 设置输出细胞类型为die  
     mode 设置为逆向迭代  
+    rule 设置游戏规则  
     custum 设置自定义地图  
     offset 设置自定义地图相对于世界的偏移值  
 
