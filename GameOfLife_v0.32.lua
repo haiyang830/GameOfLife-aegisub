@@ -10,7 +10,7 @@ config表可选配置项可以不填，将由configCheck函数生成默认值
 不指定自定义世界默认为随机世界
 如指定自定义世界需注意的是 世界的初始坐标是1,1 即显示在世界的左上角
 自定义地图的方式为：
-custum = {
+custom = {
 	worldName1={x坐标, y坐标, x坐标, y坐标, ... },
 	worldName2={x坐标, y坐标, x坐标, y坐标, ... },
 	...
@@ -52,7 +52,7 @@ mode = "reverse", --设置为逆向迭代
 
 rule = {live=3,invariant=2}, --设置游戏规则 使细胞更容易存活或死亡（live：如果周围细胞数等于3 那么继续存活或使死亡细胞复活。invariant：如果周围细胞数等于2 那么细胞状态不变。其他情况则细胞死亡。默认live=3,invariant=2）
 
-custum={ --设置自定义地图（地图定义方式如下且坐标从1,1开始计算）
+custom={ --设置自定义地图（地图定义方式如下且坐标从1,1开始计算）
 	test1={10,10,11,10,12,9,12,11,13,10,14,10,15,10,16,10,17,9,17,11,18,10,19,10},
 	test2={2,6,2,7,3,6,3,7,12,6,12,7,12,8,13,5,13,9,14,4,14,10,15,4,15,10,16,7,17,5,17,9,18,6,18,7,18,8,19,7,22,4,22,5,22,6,23,4,23,5,23,6,24,3,24,7,26,2,26,3,26,7,26,8,36,4,36,5,37,4,37,5},
 	},
@@ -82,7 +82,7 @@ function configCheck(config,world_name)
 	assert(config.speed,"table 'config.speed' not found!")
 	assert(config.shape,"table 'config.shape' not found!")
 	assert(config.distance,"table 'config.distance' not found!")
-	if world_name then assert(config.custum[world_name],"table 'config.custum."..world_name.."' not found!") end
+	if world_name then assert(config.custom[world_name],"table 'config.custom."..world_name.."' not found!") end
 	--可选配置检查
 	if not config.pos then config.pos = {x=0,y=0} end
 	if not config.border then config.border = 2 end
@@ -104,12 +104,12 @@ function configCheck(config,world_name)
 	--世界大小修正（世界大小小于定义地图所需大小时 自动扩大世界）
 	if world_name then
 		local max_num_x,max_num_y = 0,0
-		for i=1,#config.custum[world_name],2 do
-			if config.custum[world_name][i] > max_num_x then
-				max_num_x = config.custum[world_name][i]
+		for i=1,#config.custom[world_name],2 do
+			if config.custom[world_name][i] > max_num_x then
+				max_num_x = config.custom[world_name][i]
 			end
-			if config.custum[world_name][i+1] > max_num_y then
-				max_num_y = config.custum[world_name][i+1]
+			if config.custom[world_name][i+1] > max_num_y then
+				max_num_y = config.custom[world_name][i+1]
 			end
 		end
 		if max_num_x > config.size.x then
@@ -148,9 +148,9 @@ function createWorld(config,world_name)
 				world[y][x] = 0 
 			end
 		end
-		for i=1,#config.custum[world_name],2 do --读取自定义世界并写入表（世界的初始坐标是1,1开始）
-			local x = config.custum[world_name][i] + config.offset.x
-			local y = config.custum[world_name][i+1] + config.offset.y
+		for i=1,#config.custom[world_name],2 do --读取自定义世界并写入表（世界的初始坐标是1,1开始）
+			local x = config.custom[world_name][i] + config.offset.x
+			local y = config.custom[world_name][i+1] + config.offset.y
 			world[y][x] = 1
 		end
 	else --默认世界类型为随机
