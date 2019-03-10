@@ -21,7 +21,7 @@ aegisub细胞自动机模版
     custum 设置自定义地图  
     offset 设置自定义地图相对于世界的偏移值  
 
-具体用法说明详见lua文件与test.ass
+具体用法说明详见lua文件与template.ass
 
 默认随机世界测试  
 gameOfLife(config)  
