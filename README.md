@@ -15,7 +15,7 @@ aegisub细胞自动机模版
 可选配置项：  
     pos: 设置地图生成坐标  
     border: 设置地图边界距离  
-    state: 设置输出细胞类型 
+    state: 设置输出细胞类型  
     mode: 设置为逆向迭代  
     rule: 设置游戏规则  
     custum: 设置自定义地图  
