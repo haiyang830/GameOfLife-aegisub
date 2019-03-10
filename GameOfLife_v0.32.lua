@@ -163,7 +163,7 @@ function createWorld(config,world_name)
 	end
 	--[[
 	  x_table   x_table   x_table
-	{{0,0,0,0},{1,1,1,1},   ...    } <-- world
+	{{0,0,0,0},{1,1,1,1},   ...    } <-- world size 4x4
 	--]]
 	return world
 end
